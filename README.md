@@ -1,2 +1,0 @@
-# CritterSitter
-ICS ISP Game 
