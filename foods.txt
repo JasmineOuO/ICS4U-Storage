@@ -1,18 +1,16 @@
-Carbohydrates
-
+CARBOHYDRATES
 bagel
 croissant
 bread
 baked potato
-rice (fried)
-noodles (asian)
+rice 
+noodles 
 spaghetti
 lasanga
 muffin
 waffle
 
-fruits and vegetables
-
+FRUITS AND VEGETABLES
 carrot
 tomato
 turnip
@@ -21,9 +19,8 @@ peas
 eggplant
 mushroom
 corn
-peppers (allo 3 in 1 icon)
+peppers 
 pickles
-
 banana
 apple
 strawberry
@@ -34,8 +31,7 @@ pear
 plum
 pineapple
 
-dairy
-
+DAIRY
 yogurt
 milk
 cheese
@@ -43,8 +39,7 @@ ice cream
 parfait
 frozen yogurt
 
-meat and alternatives
-
+MEAT AND ALTERNATIVES
 eggs
 fish
 BACON
@@ -58,7 +53,7 @@ hamburger
 lobster
 crab
 steak
-trailmix - almonds, cashew, etc.
+trailmix
 granola bars
 beans
 ribs
@@ -68,8 +63,7 @@ legumes
 shrimp
 hot dogs
 
-JUNK FOOD
-
+SUGAR AND FAT
 chips
 candy
 soft drinks
