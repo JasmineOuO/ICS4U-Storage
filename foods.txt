@@ -42,9 +42,9 @@ frozen yogurt
 MEAT AND ALTERNATIVES
 eggs
 fish
-BACON
+bacon
 ham
-chiken legs
+chicken legs
 turkey
 chicken wings
 pork roast
@@ -59,7 +59,6 @@ beans
 ribs
 racks of lamb
 sausages
-legumes
 shrimp
 hot dogs
 
