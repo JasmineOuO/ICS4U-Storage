@@ -7,4 +7,4 @@ The objective of this game is to simply raise your critter until it has fully ma
 
 ![](images/JewelCaseCover%20(2015_11_18%2004_16_17%20UTC).jpg)
 
-![](images/JewelCaseBack%20(2015_11_18%2004_16_17%20UTC).jpg)
+![](images/images/backCover%20(2015_11_18%2004_16_17%20UTC).png)
