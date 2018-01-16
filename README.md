@@ -5,3 +5,6 @@ CritterSitter is a fun game that teaches children about proper nutrition. Childr
 
 The objective of this game is to simply raise your critter until it has fully matured into an adult critter and gain the most points while keeping the critter healthy.
 
+![](images/JewelCaseCover%20(2015_11_18%2004_16_17%20UTC).jpg)
+
+![](images/JewelCaseBack%20(2015_11_18%2004_16_17%20UTC).jpg)
