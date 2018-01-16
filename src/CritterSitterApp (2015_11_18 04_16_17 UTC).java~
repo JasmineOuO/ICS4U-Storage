@@ -1,0 +1,486 @@
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import java.io.*;
+import java.net.*;
+/**
+ * The CritterSitterApp is the driver class that creates CritterSitterApp as well as executes the program.
+ * It also extends JFrame, so it creates the frame and adds panels to it using CardLayout. 
+ * 
+ *
+ * @author Jasmine Ou and Laura Wong
+ * @version 5 06.09.15
+ * 
+ * <p>
+ * <b>name: CritterSitterApp.java </b>
+ *
+ * <p>
+ * <b>Instance variables: </b>
+ * <p>
+ * <b>cards </b> This creates an instance of the JPanel class to store all the cards for CardLayout.
+ * <p>
+ * <b>card3 </b> This creates an instance of the JPanel class for home.
+ * <p>
+ * <b>card4 </b> This creates an instance of the JPanel class for groceryStore.
+ * <p>
+ * <b>card6 </b> This creates an instance of the JPanel class for recreation.
+ * <p>
+ * <b>home </b> This creates a static instance of the CritterHome class.
+ * <p>
+ * <b>askData </b> This creates a static instance of the AskData class.
+ * <p>
+ * <b>mainMenu </b> This creates a static instance of the MainMenu class.
+ * <p>
+ * <b>groceryStore </b> This creates an instance of the GroceryStore class.
+ * <p>
+ * <b>doctor </b> This creates and instance of the doctor Doctor class.
+ * <p>
+ * <b>recreation </b> This creates an instance of the Recreation class.
+ * <p>
+ * <b>highScores </b> This creates and instance of the HighScores class.
+ */
+public class CritterSitterApp extends JFrame
+{
+  JPanel cards,card3,card4,card6;
+  static CritterHome home;
+  static AskData askData;
+  static MainMenu mainMenu;
+  GroceryStore groceryStore;
+  Doctor doctor;
+  static Recreation recreation;
+  static HighScores highScores;
+  
+  /**
+   * CritterSitterApp method is used to create the CritterSitterApp object in RAM while passing the String title "CritterSitter". 
+   * Finally, this method sets the performance window to 778 x 566, is visible to the user, centered on the screen and not resizeable.
+   * It also ensures the window will do nothing when the user pushes the 'x' button.
+   * Instead, a WindowListener is added to the frame and the exitOn method in mainMenu is called.
+   * ActionListeners are used to make sure that clicking a button in one of the panels of CardLayout will lead to the correct one. 
+   * 
+   * For the mainMenu's ActionListener, the first if statement checks if the action command is "Play".
+   * If the user already played a game, a JOptionPane asks the user whether they want to start a new game or continue their game.
+   * If they choose to continue, Home is shown and else, AskData is shown.
+   * Else (for the first if statement), the if statement checks if the action command is "Instructions" which will display the Instructions panel.
+   * Else the if statement checks if the action command is "HighScores" which will diplay the HighScores panel.
+   * The nexted if statement of the first if statement checks if home is not initalized yet which then displays a JOptionPane to the user.
+   * If the user chooses to continue their game, the CritterHome panel is shown.
+   * If the user wants a new game, the AskData panel is shown and home is reinitalized.
+   * 
+   * For the askData's ActionListener, 
+   * If the action command is one of the colours, the critter is set to the action command's colour String.
+   * If the action command is one of the difficulty levels, the difficulty is set to the action command's difficulty String.
+   * If statement checks if the action command is "Ok", then it checks if checkUserName returns false.
+   * If so, a JOptionPane tells the user to input a username and the cursor is put in the text field.
+   * Else, the game starts and it displays the card3, the home panel.
+   * 
+   * For the doctor's ActionListener, the first if statement checks to see if the action command is "Yes".
+   * If so, it will go to the check-up with the clipboard for the critter's information.
+   * Else, if the action command is "Exit" it will exit the page and go back to the critter's home.
+   * The last if inside the else is to check to see if the action command is "OK", if so the page exits and goes back to the critter's home.
+   * 
+   * For the highScores's ActionListener, the one and only if statement check to see if the action command is "Done".
+   * If it is, it will return to the main menu.
+   * 
+   * For the instructions' ActionListener, the one and only if statement check to see if the action command is "Done".
+   * If it is, it will return to the main menu.
+   * 
+   * For the aboutItem's ActionListener, the JOptionPane message dialog is shown.
+   * 
+   * For the helpItem's ActionListener, the try catch block opens the chm file. 
+   * 
+   * Cards 1,2,5,7 and 8 are added to the JPanel set to the layout of CardLayout, which is added to the frame.
+   * Card 1 stores the MainMenu class, 2 had AskData, 3 has CritterHome, 4 has GroceryStore, 5 has Doctor, 6 has Recreation, 7 has HighScores and 8 has Instructions. 
+   * 
+   * 
+   * <p>
+   * <b>Local Variable Dictionary: </b>
+   * <p>
+   * <b> card1 </b> This stores the MainMenu class as a JPanel.
+   * <p>
+   * <b> card2 </b> This stores the AskData class as a JPanel.
+   * <p>
+   * <b> card5 </b> This stores the Doctor class as a JPanel.
+   * <p>
+   * <b> card7 </b> This stores the HighScores class as a JPanel.
+   * <p>
+   * <b> card8 </b> This stores the Instructions class as a JPanel.
+   * <p>
+   * <b> cl </b> This is the card layout used for program flow.
+   * <p>
+   * <b> n </b> This is the integer that stores the user's choice for the JOptionPane.
+   * <p>
+   * <b> options </b> This is the Object array of the String options in the JOptionPane.
+   * <p>
+   * <b> helpItem </b> This creates an instance of the JMenuItem class with the String title "Help" passed in.
+   * <p>
+   * <b> aboutItem </b> This creates an instance of the JMenuItem class with the String title "About Critter Sitter" passed in.
+   * <p>
+   * <b> help </b> This creates an instance of the JMenu class with the String title "Help" passed in.
+   * <p>
+   * <b> myMenus </b> This creates an instance of the JMenuBar class.
+   * <p>
+   * <b> toolKit </b> This creates an instance of the ToolKit class.
+   * <p>
+   * <b> image </b> This stores the image of the cursor.
+   * <p>
+   * <b> hotSpot  </b> This is an instance of the Point class to make the hot spot at (0,0)
+   * <p>
+   * <b> cursor </b> This creates an instance of the Cursor class to make the cursor. 
+   */
+  public CritterSitterApp()
+  {
+    super ("CritterSitter");
+    
+    mainMenu = new MainMenu();
+    mainMenu.setButtonsActionListener(new ActionListener()
+                                        {
+      public void actionPerformed(ActionEvent e)
+      {
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        int n = 1;
+        if (e.getActionCommand().equals("Play"))
+        {
+          if (home == null)
+          {
+            cl.show(cards, "AskData");
+          }
+          else
+          {
+            Object [] options = {"Continue Saved Game", "New Game"};
+            n = JOptionPane.showOptionDialog(null, "Do you want to start a new game?", "Play Game", JOptionPane.YES_NO_OPTION,
+                                             JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            if (n == 0)
+            {
+              home.clock.start();
+              cl.show(cards, "CritterHome");
+            }
+            else
+            {
+              askData.userName.setText("");
+              home = null;
+              cl.show(cards, "AskData");
+            }
+          }
+        }
+        else if (e.getActionCommand().equals("Instructions"))
+        {
+          cl.show(cards, "Instructions");
+        }
+        else 
+        {
+          if (e.getActionCommand().equals("HighScores"))
+          {
+            cl.show(cards, "HighScores");
+          }
+        }
+      }
+    });
+    
+    askData = new AskData();
+    askData.setButtonsActionListener (new ActionListener ()
+                                        {
+      public void actionPerformed (ActionEvent e)
+      {
+        if (e.getActionCommand ().equals ("Red")||e.getActionCommand ().equals ("Blue")||e.getActionCommand ().equals ("Purple")||e.getActionCommand ().equals ("Orange")||e.getActionCommand ().equals ("Yellow"))
+        {
+          askData.setCritter(e.getActionCommand());
+        }
+        if (e.getActionCommand ().equals ("easy")||e.getActionCommand ().equals ("medium")||e.getActionCommand ().equals ("hard"))
+        {
+          askData.setDifficultyNum(e.getActionCommand());
+        }
+        if (e.getActionCommand ().equals ("Ok"))
+        {
+          if (!askData.checkUsername())
+          {
+            JOptionPane.showMessageDialog(null, "Please input a user name!");
+            askData.userName.requestFocusInWindow();
+          }
+          else
+          {
+            startGame();
+            CardLayout cl = (CardLayout)(cards.getLayout());
+            home.clock.start();
+            cl.show(cards, "CritterHome");
+          }
+        }
+      }
+    }
+    );
+    
+    doctor = new Doctor();
+    doctor.setButtonsActionListener (new ActionListener()
+                                       {
+      public void actionPerformed (ActionEvent e)
+      {
+        if (e.getActionCommand().equals("Yes"))
+        {
+          doctor.setStartAgain(false);
+          doctor.beforeCheckUp();
+          repaint();
+          doctor.askDialog.dispose();
+        }
+        else if (e.getActionCommand().equals("Exit"))
+        {
+          CardLayout cl = (CardLayout)(cards.getLayout());
+          cl.show(cards, "CritterHome");
+          doctor.setCounter(0);
+          doctor.setStartAgain(true);
+          doctor.askDialog.dispose();
+        }
+        else 
+        {
+          if (e.getActionCommand().equals("OK"))
+          {
+            CardLayout cl = (CardLayout) (cards.getLayout());
+            cl.show(cards, "CritterHome");
+            doctor.setCounter(0);
+            doctor.setStartAgain(true);
+          }
+        }
+      }
+    }
+    );
+    
+    highScores = new HighScores();
+    highScores.setButtonsActionListener (new ActionListener()
+                                           {
+      public void actionPerformed (ActionEvent e)
+      {
+        if (e.getActionCommand().equals("Done"))
+        {
+          CardLayout cl = (CardLayout)(cards.getLayout());
+          cl.show(cards, "MainMenu");
+        }
+      }
+    }
+    );
+    
+    Instructions instructions = new Instructions();
+    instructions.setButtonsActionListener (new ActionListener()
+                                             {
+      public void actionPerformed (ActionEvent e)
+      {
+        if (e.getActionCommand().equals("Done"))
+        {
+          CardLayout cl = (CardLayout)(cards.getLayout());
+          cl.show(cards, "MainMenu");
+        }
+      }
+    }
+    );
+    
+    JPanel card1 = mainMenu;
+    JPanel card2 = askData;
+    JPanel card5 = doctor;
+    JPanel card7 = highScores;
+    JPanel card8= instructions;
+    
+    cards = new JPanel(new CardLayout());
+    cards.add(card1, "MainMenu");
+    cards.add(card2, "AskData");
+    cards.add(card5, "Doctor");
+    cards.add(card7, "HighScores");
+    cards.add(card8, "Instructions");
+    
+    add(cards, BorderLayout.CENTER);
+    
+    JMenuItem aboutItem=new JMenuItem("About Critter Sitter");
+    JMenuItem helpItem=new JMenuItem("Help");
+    JMenu help = new JMenu ("Help");
+    help.add(helpItem);
+    help.add(aboutItem);
+    JMenuBar myMenus = new JMenuBar ();
+    myMenus.add (help);
+    setJMenuBar (myMenus);
+    
+    aboutItem.addActionListener (new ActionListener ()
+                                   {
+      public void actionPerformed (ActionEvent e)
+      {
+        JOptionPane.showMessageDialog(null,"         Critter Sitter\n  Created by Cookiebyte\nJasmine Ou & Laura Wong","About Critter Sitter", JOptionPane.INFORMATION_MESSAGE,new ImageIcon("images/HighScores/cookieLogo.png"));
+      }
+    }
+    );
+    
+    helpItem.addActionListener (new ActionListener ()
+                                  {
+      public void actionPerformed (ActionEvent e)
+      {
+        try
+        {
+          Runtime.getRuntime().exec("hh.exe help\\CritterSitter-Documentation.chm");
+        }
+        catch (IOException ie)
+        {}
+      }
+    }
+    );
+    
+    
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent evt) {
+        mainMenu.onExit();
+      }
+    });
+    
+    Toolkit toolkit = Toolkit.getDefaultToolkit();  
+    setIconImage(new ImageIcon("images/Critter/GameIcon.png").getImage());
+    Image image = toolkit.getImage("images/cursor.png"); 
+    Point hotSpot = new Point(0,0);  
+    Cursor cursor = toolkit.createCustomCursor(image, hotSpot, "Cursor");  
+    setCursor(cursor);  
+    setSize (778, 589);
+    setLocationRelativeTo(null);
+    setResizable(false);
+    setVisible (true);
+    
+  }
+  
+  /**
+   * The startGame method starts the game by intializing and adding more cards of the critter's home, recreation panel and grocery store.
+   */
+  public void startGame()
+  {
+    home = new CritterHome(askData.getName(), askData.getDifficultyNum(), askData.getCritter());
+    groceryStore = new GroceryStore();
+    recreation = new Recreation();
+    card3 = home;
+    card4 = groceryStore;
+    card6 = recreation;
+    cards.add(card3, "CritterHome");
+    cards.add(card4, "GroceryStore");
+    cards.add(card6, "Recreation");
+    startListeners();
+  }
+  
+  /**
+   * The startListeners method adds the ActionListeners to the buttons in home and groceryStore.
+   * 
+   * For the home's ActionListener, the first if statement checks if the action command is "Store", which will then diplay the card4.
+   * Else, if the action command is "Recreation", card6 is displayed.
+   * Else, if the action command is "Doctor", card5 is displayed.
+   * Else, if the action command is "Pamphlet", a pamphlet dialog is displayed.
+   * Else, if the action command is "Menu", card1 is displayed, the clock is stopped and a JOptionPane informs the user that their game will be saved.
+   * Else, the homeDialog is disposed, home is set to null and askData's variables are reset. 
+   * If home is not null, homeDialog is disposed of.
+   * 
+   * For the groceryStore's ActionListener, the first if statement checks if the action command is "Exit", which will then diplay the card4.
+   *
+   * For the recreation's ActionLister, if the actionCommand is "Got it!" then the CritterHome card is shown and the okButtonDialog is disposed of.
+   * Else if the actionCommand is "No" then the CritterHome card is shown and the askDialog is disposed of.
+   * Else, if the actionCommand is "Yes", recreation continues to play and the askDialog is disposed of.
+   * 
+   * <p>
+   * <b>Local Variable Dictionary: </b>
+   * <p>
+   * <b> pamphletDialog </b> An instance of the JDialog class to display the critter's profile to the user.
+   * <p>
+   * <b> pamphletOptionpane </b> An instance of the JOptionPane class for the pamphlet.
+   * <p>
+   * <b> cl </b> This is the card layout used for program flow.
+   */
+  public void startListeners()
+  {
+    home.setButtonsActionListener(new ActionListener()
+                                    {
+      public void actionPerformed(ActionEvent e)
+      {
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        if (e.getActionCommand().equals("Store"))
+        {
+          cl.show(cards, "GroceryStore");
+          groceryStore.repaint();
+        }
+        else if (e.getActionCommand().equals("Recreation"))
+        {
+          cl.show(cards, "Recreation");
+          recreation.entered=false;
+        }
+        else if (e.getActionCommand().equals("Doctor"))
+        {
+          cl.show(cards, "Doctor");
+          doctor.start();
+          doctor.repaint();
+        }
+        else if (e.getActionCommand().equals("Pamphlet"))
+        {
+          JDialog pamphletDialog;
+          JOptionPane pamphletOptionpane = new JOptionPane ("", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, new ImageIcon("images/Critter/" + askData.getCritter() + "Pamphlet.jpg")); 
+          pamphletDialog = pamphletOptionpane.createDialog("The Pamphlet");
+          pamphletDialog.setVisible(true);
+        }
+        else
+        {
+          if (e.getActionCommand().equals("Menu"))
+          {
+            home.clock.stop();
+            JOptionPane.showMessageDialog(null, "Your game will be saved as long as \nyou do not quit from the main menu.");
+            home.homeDialog.dispose();
+          }
+          cl.show(cards, "MainMenu");
+        }
+        if (home != null)
+          home.homeDialog.dispose();
+      }
+    });
+    
+    groceryStore.setButtonsActionListener (new ActionListener ()
+                                             {
+      public void actionPerformed (ActionEvent e)
+      {
+        if (e.getActionCommand().equals("Exit"))
+        {
+          CardLayout cl = (CardLayout)(cards.getLayout());
+          cl.show(cards, "CritterHome");
+        }
+      }
+    }
+    );
+    
+    recreation.setButtonsActionListener (new ActionListener ()
+                                           {
+      public void actionPerformed (ActionEvent e)
+      {
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        if (e.getActionCommand().equals("Got it!"))
+        {
+          cl.show(cards, "CritterHome");
+          recreation.okButtonDialog.dispose();
+        }
+        else if (e.getActionCommand().equals("No"))
+        {
+          cl.show(cards, "CritterHome");
+          recreation.askDialog.dispose();
+        }
+        else 
+          if (e.getActionCommand().equals("Yes"))
+        {
+          recreation.play();
+          repaint();
+          recreation.askDialog.dispose();
+        }
+      }
+    }
+    );
+  }
+  
+  /** Description of main(String [] args)
+    * The SplashScreen constructor is called to display the splash screen in a JWindow first.
+    * Then the sound class is instantiated to loop the background music as a thread.
+    * Afterwards, this method calls the CritterSitterApp constructor to
+    * create the application.
+    *
+    * @param args [ ]  String array that allows command line
+    * parameters to be used when executing the program.
+    */
+  public static void main (String[] args)
+  { 
+    new SplashScreen();
+    Sound sound=new Sound();
+    sound.loop();
+    new CritterSitterApp();
+  }
+}
