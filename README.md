@@ -12,5 +12,5 @@ Install the game <a href="https://drive.google.com/open?id=1WZuNLRE4gs6C5J92iL-a
 <img src= "misc/screenshots/StartGame%20(2015_11_18%2004_16_17%20UTC).PNG" width="400" align="middle">
 <img src= "misc/screenshots/CritterHome%20(2015_11_18%2004_16_17%20UTC).PNG" width="400" align="middle">
 <img src= "misc/screenshots/GroceryStore%20(2015_11_18%2004_16_17%20UTC).PNG" width="400" align="middle">
-<img src= "misc/screenshots/DoctorOffice%20(2015_11_18%2004_16_17%20UTC).PN" width="400" align="middle">
+<img src= "misc/screenshots/DoctorOffice%20(2015_11_18%2004_16_17%20UTC).PNG" width="400" align="middle">
 <img src= "misc/screenshots/RecreationMedium%20(2015_11_18%2004_16_17%20UTC).PNG" width="400" align="middle">
